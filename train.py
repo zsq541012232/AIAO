@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 from tqdm import tqdm
 from data_utils import split_dataset, get_indices_from_dir, ZernikeDataset, ZernikeDatasetFixed3Channel
-from model import (ConsistentUnderCorrectLoss, SignMarginShrinkLoss, ZernikeNet, ZernikeViT, ZernikeEffNet, SignWeightedMSELoss, SignMarginLoss,
+from model import (ConsistentUnderCorrectLoss, SignMarginShrinkLoss, ZernikeNet, ZernikeEffNet, SignWeightedMSELoss, SignMarginLoss,
                   ZernikeUNet)
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -73,15 +73,9 @@ def train():
     if use_fixed_3channel:
         raise NotImplementedError("3通道模式暂未适配 Siamese 模型")
     else:
-        # model = ZernikeSiameseViTAttnResRoPE(num_outputs=num_modes).to(device)
         # model = ZernikeEffNet(num_outputs=num_modes, in_channels=model_in_channels, weight_path=None).to(device)
-        # model = ZernikeNet(num_outputs=num_modes, in_channels=model_in_channels, weight_path=weight_path).to(device)
-        # model = ZernikeSiameseResNetCBAM(num_outputs=num_modes, weight_path=weight_path).to(device)
-        # model = ZernikeDualCrossNet(num_outputs=num_modes, weight_path=weight_path).to(device)
-        model = ZernikeUNet(num_outputs=num_modes, in_channels=model_in_channels).to(device)
-        # model = ZernikeMambaPure(num_outputs=num_modes, in_channels=model_in_channels, img_size=224).to(device)
-        # model = ZernikeFusionMambaPure(num_outputs=num_modes, img_size=224).to(device)
-        # model = ZernikeUNetMambaDeepFusion(num_outputs=num_modes, in_channels=model_in_channels, img_size=224).to(device)
+        model = ZernikeNet(num_outputs=num_modes, in_channels=model_in_channels, weight_path=weight_path).to(device)
+        # model = ZernikeUNet(num_outputs=num_modes, in_channels=model_in_channels).to(device)
 
     # 加载预训练生成式模型（冻结）
     gen_model = None
