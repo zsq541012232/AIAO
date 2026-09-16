@@ -93,16 +93,16 @@ def train():
         gen_model.eval()
         print("    ✅ 生成式模型已冻结，用于 cycle consistency")
 
-    # criterion = nn.MSELoss().to(device)
-    # print("    ✅ 已使用 nn.MSELoss")
+    criterion = nn.MSELoss().to(device)
+    print("    ✅ 已使用 nn.MSELoss")
     # criterion = SignWeightedMSELoss(penalty_weight=sign_penalty).to(device)
     # print("    ✅ 已使用 SignWeightedMSELoss（含符号惩罚）")
     # criterion = SignMarginLoss(mse_weight=1.0, margin=margin, sign_penalty=sign_penalty).to(device)
     # print(f"    ✅ 已使用 SignMarginLoss（margin={margin}, penalty={sign_penalty}）")
     # criterion = SignMarginShrinkLoss(mse_weight=1.0,margin=margin, sign_penalty=sign_penalty, shrink_weight=shrink_weight).to(device)
     # print(f"    ✅ 已使用 SignMarginShrinkLoss（margin={margin}, sign_penalty={sign_penalty}, shrink_weight={shrink_weight}）")
-    criterion = ConsistentUnderCorrectLoss(mse_weight=1.0,margin=0.0,sign_penalty=8.0,over_weight=3.5).to(device)
-    print(f"    ✅ 已使用 ConsistentUnderCorrectLoss（margin=0.0, sign_penalty=8.0, over_weight=3.5）")
+    # criterion = ConsistentUnderCorrectLoss(mse_weight=1.0,margin=0.0,sign_penalty=8.0,over_weight=3.5).to(device)
+    # print(f"    ✅ 已使用 ConsistentUnderCorrectLoss（margin=0.0, sign_penalty=8.0, over_weight=3.5）")
 
     optimizer = optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-2)
 
